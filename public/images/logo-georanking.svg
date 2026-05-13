@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="GeoRanking">
+  <title>GeoRanking</title>
+  <g>
+    <path d="M22 6c-6.6 0-12 5.4-12 12 0 9 12 22 12 22s12-13 12-22c0-6.6-5.4-12-12-12z" fill="#4285f4"/>
+    <circle cx="22" cy="18" r="4.5" fill="#f7f3ea"/>
+  </g>
+  <g font-family="'Manrope', 'Inter', system-ui, sans-serif" font-weight="700">
+    <text x="46" y="31" font-size="22" fill="#101512" letter-spacing="-0.5">Geo</text>
+    <text x="92" y="31" font-size="22" fill="#34a853" letter-spacing="-0.5">Ranking</text>
+  </g>
+</svg>
