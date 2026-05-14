@@ -38,6 +38,7 @@ import { Button } from "@/components/ui/button";
 import { AiBenefits } from "@/components/lp/ai-benefits";
 import { FeatureVisual } from "@/components/lp/feature-visuals";
 import { GoogleSearchAnimation } from "@/components/lp/google-search-animation";
+import { GpsBeacon } from "@/components/lp/gps-beacon";
 import { PhoneHighlight } from "@/components/lp/phone-highlight";
 import { VideoTestimonials } from "@/components/lp/video-testimonials";
 import { WhatsappIcon } from "@/components/lp/whatsapp-icon";
@@ -198,7 +199,7 @@ export default function Home() {
             className="max-w-xl"
           >
             {/* Status badge */}
-            <Badge className="mb-6 inline-flex h-8 items-center gap-1.5 rounded-full border border-[#22C55E]/20 bg-[#22C55E]/8 px-3 text-xs text-[#16A34A]">
+            <Badge className="mb-5 inline-flex h-7 items-center gap-1.5 rounded-full border border-[#22C55E]/20 bg-[#22C55E]/8 px-2.5 text-[11px] text-[#16A34A] sm:mb-6 sm:h-8 sm:px-3 sm:text-xs">
               <span className="relative flex size-2">
                 <motion.span
                   animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
@@ -210,7 +211,7 @@ export default function Home() {
               Alta procura na sua região
             </Badge>
 
-            <h1 className="text-balance text-3xl font-bold leading-[1.08] text-[#1A1A1A] sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="text-balance text-[2rem] font-bold leading-[1.08] text-[#1A1A1A] sm:text-4xl md:text-5xl lg:text-6xl">
               Seu projeto no{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#3B82F6]">topo das pesquisas</span>
@@ -222,37 +223,37 @@ export default function Home() {
                 />
               </span>
             </h1>
-            <p className="mt-5 max-w-lg text-base leading-7 text-[#6B7280] sm:mt-6 sm:text-lg sm:leading-8">
+            <p className="mt-4 max-w-lg text-[15px] leading-6 text-[#6B7280] sm:mt-6 sm:text-lg sm:leading-8">
               Com Geo Ranking coloque sua empresa onde seus clientes estão: no topo do Google e na palma da mão de quem quer comprar.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
               <Button
                 render={<a href={whatsappPrimary} target="_blank" rel="noreferrer" />}
                 nativeButton={false}
-                className="h-12 rounded-xl bg-[#1A1A1A] px-6 text-base text-white shadow-lg shadow-[#1A1A1A]/20 hover:bg-[#374151]"
+                className="h-12 w-full rounded-xl bg-[#1A1A1A] px-6 text-base text-white shadow-lg shadow-[#1A1A1A]/20 hover:bg-[#374151] sm:w-auto"
               >
                 Falar com especialista
                 <ArrowRight className="size-5" aria-hidden="true" />
               </Button>
               <a
                 href="#produto"
-                className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold text-[#1A1A1A] transition hover:text-[#3B82F6]"
+                className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold text-[#1A1A1A] transition hover:text-[#3B82F6] sm:h-12"
               >
                 Ver como funciona
                 <ChevronRight className="size-4" aria-hidden="true" />
               </a>
             </div>
 
-            {/* Social proof row */}
+            {/* Social proof row — compact mobile */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.5 }}
-              className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
+              className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 sm:mt-10 sm:gap-x-6 sm:gap-y-4"
             >
               {/* Avatar stack */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className="flex -space-x-2">
                   {[
                     { c: "from-[#3B82F6] to-[#1D4ED8]", l: "J" },
@@ -262,49 +263,60 @@ export default function Home() {
                   ].map((a, i) => (
                     <span
                       key={i}
-                      className={`flex size-8 items-center justify-center rounded-full bg-gradient-to-br ${a.c} text-xs font-bold text-white ring-2 ring-white`}
+                      className={`flex size-7 items-center justify-center rounded-full bg-gradient-to-br ${a.c} text-[10px] font-bold text-white ring-2 ring-white sm:size-8 sm:text-xs`}
                     >
                       {a.l}
                     </span>
                   ))}
-                  <span className="flex size-8 items-center justify-center rounded-full bg-[#F5F5F5] text-[10px] font-bold text-[#1A1A1A] ring-2 ring-white">
+                  <span className="flex size-7 items-center justify-center rounded-full bg-[#F5F5F5] text-[10px] font-bold text-[#1A1A1A] ring-2 ring-white sm:size-8">
                     +7k
                   </span>
                 </div>
                 <div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5 sm:gap-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="size-3.5 fill-[#EAB308] text-[#EAB308]"
+                        className="size-3 fill-[#EAB308] text-[#EAB308] sm:size-3.5"
                         aria-hidden="true"
                       />
                     ))}
-                    <span className="ml-1 text-xs font-semibold text-[#1A1A1A]">5,0</span>
+                    <span className="ml-1 text-[11px] font-semibold text-[#1A1A1A] sm:text-xs">5,0</span>
                   </div>
-                  <p className="text-xs text-[#6B7280]">+7.000 empresas no topo</p>
+                  <p className="text-[11px] leading-tight text-[#6B7280] sm:text-xs">+7.000 empresas no topo</p>
                 </div>
               </div>
 
               {/* Compact bullets */}
-              <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#6B7280]">
+              <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-[#6B7280] sm:gap-x-4 sm:text-xs">
                 <li className="inline-flex items-center gap-1">
-                  <Check className="size-3.5 text-[#22C55E]" aria-hidden="true" />
+                  <Check className="size-3 text-[#22C55E] sm:size-3.5" aria-hidden="true" />
                   Sem fidelidade
                 </li>
                 <li className="inline-flex items-center gap-1">
-                  <Check className="size-3.5 text-[#22C55E]" aria-hidden="true" />
+                  <Check className="size-3 text-[#22C55E] sm:size-3.5" aria-hidden="true" />
                   Teste grátis 7 dias
                 </li>
                 <li className="inline-flex items-center gap-1">
-                  <Check className="size-3.5 text-[#22C55E]" aria-hidden="true" />
+                  <Check className="size-3 text-[#22C55E] sm:size-3.5" aria-hidden="true" />
                   API oficial Google
                 </li>
               </ul>
             </motion.div>
           </motion.div>
 
-          {/* Right — Google Search Animation (fixed height inside) */}
+          {/* GPS Beacon — visual focal só em mobile (entre texto e simulador) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+            className="-my-2 flex justify-center lg:hidden"
+            aria-hidden="true"
+          >
+            <GpsBeacon size="md" />
+          </motion.div>
+
+          {/* Right — Google Search Animation */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}

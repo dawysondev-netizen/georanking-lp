@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Clock,
   MapPin,
-  Navigation,
   Phone,
   Search,
   Sparkles,
@@ -15,15 +14,17 @@ import {
   TrendingUp,
 } from "lucide-react";
 
+import { WhatsappIcon } from "@/components/lp/whatsapp-icon";
+
 /* ─── Configuração ─── */
-const SEARCH_QUERY = "pizzaria perto de mim";
+const SEARCH_QUERY = "sua empresa";
 const TOTAL_RESULTS = 128;
 const USER_BUSINESS = {
-  name: "Sua Pizzaria",
-  category: "Pizzaria",
+  name: "Sua Empresa",
+  category: "Sua categoria",
   distance: "0,3 km",
-  rating: 5.0,
-  reviews: 127,
+  rating: 4.9,
+  reviews: 128,
   open: true,
   closesAt: "23h",
 };
@@ -88,75 +89,84 @@ function Stars({ rating, size = 11 }: { rating: number; size?: number }) {
 /* ─── Mini Maps preview ─── */
 function MiniMap({ isTop }: { isTop: boolean }) {
   return (
-    <div className="relative h-[88px] overflow-hidden rounded-lg border border-gray-200 bg-[#E8EEF4]">
+    <div className="relative h-[96px] overflow-hidden rounded-lg border border-gray-200 bg-[#E8EEF4] sm:h-[104px]">
       <svg
         className="absolute inset-0 size-full"
-        viewBox="0 0 240 88"
+        viewBox="0 0 240 100"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
         <defs>
           <linearGradient id="mapGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#EEF2F7" />
-            <stop offset="100%" stopColor="#DBE3EC" />
+            <stop offset="0%" stopColor="#F0F4F9" />
+            <stop offset="100%" stopColor="#D8E2EC" />
           </linearGradient>
         </defs>
-        <rect width="240" height="88" fill="url(#mapGradient)" />
+        <rect width="240" height="100" fill="url(#mapGradient)" />
         {/* Streets */}
-        <path d="M 0 28 L 240 24" stroke="#fff" strokeWidth="3.5" />
-        <path d="M 0 58 L 240 62" stroke="#fff" strokeWidth="3.5" />
-        <path d="M 60 0 L 56 88" stroke="#fff" strokeWidth="3" />
-        <path d="M 140 0 L 144 88" stroke="#fff" strokeWidth="3" />
-        <path d="M 200 0 L 204 88" stroke="#fff" strokeWidth="2.5" />
-        <path d="M 28 0 L 24 88" stroke="#fff" strokeWidth="1.5" opacity="0.6" />
-        {/* Park / green area */}
-        <ellipse cx="40" cy="72" rx="22" ry="11" fill="#C8E6C9" />
-        <ellipse cx="180" cy="14" rx="20" ry="8" fill="#C8E6C9" />
+        <path d="M 0 30 L 240 26" stroke="#fff" strokeWidth="4" />
+        <path d="M 0 66 L 240 70" stroke="#fff" strokeWidth="4" />
+        <path d="M 60 0 L 56 100" stroke="#fff" strokeWidth="3.5" />
+        <path d="M 144 0 L 148 100" stroke="#fff" strokeWidth="3.5" />
+        <path d="M 200 0 L 204 100" stroke="#fff" strokeWidth="2.5" />
+        <path d="M 28 0 L 24 100" stroke="#fff" strokeWidth="1.8" opacity="0.6" />
+        <path d="M 100 0 L 102 100" stroke="#fff" strokeWidth="1.8" opacity="0.6" />
+        {/* Park / green areas */}
+        <ellipse cx="40" cy="84" rx="24" ry="12" fill="#C8E6C9" />
+        <ellipse cx="180" cy="14" rx="22" ry="9" fill="#C8E6C9" />
+        <ellipse cx="118" cy="50" rx="10" ry="5" fill="#C8E6C9" opacity="0.6" />
         {/* Street labels */}
-        <text x="92" y="22" fontSize="6" fill="#9AA5B1" fontFamily="system-ui">
+        <text x="92" y="22" fontSize="6.5" fill="#8B95A3" fontFamily="system-ui" fontWeight="500">
           Av. Brasil
         </text>
-        <text x="148" y="56" fontSize="6" fill="#9AA5B1" fontFamily="system-ui">
+        <text x="155" y="62" fontSize="6.5" fill="#8B95A3" fontFamily="system-ui" fontWeight="500">
           R. das Flores
         </text>
       </svg>
 
       {/* Competitor pins */}
       <motion.div
-        animate={{ opacity: isTop ? 0.3 : 1 }}
+        animate={{ opacity: isTop ? 0.35 : 1 }}
         transition={{ duration: 0.5 }}
         className="absolute inset-0"
       >
-        <span className="absolute left-[18%] top-[30%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#EF4444] shadow-sm" />
-        <span className="absolute left-[42%] top-[68%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#3B82F6] shadow-sm" />
-        <span className="absolute left-[72%] top-[36%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#EAB308] shadow-sm" />
-        <span className="absolute left-[85%] top-[72%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#8B5CF6] shadow-sm" />
-        <span className="absolute left-[28%] top-[78%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#F97316] shadow-sm" />
+        <span className="absolute left-[18%] top-[28%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#EF4444] shadow-md" />
+        <span className="absolute left-[78%] top-[28%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#EAB308] shadow-md" />
+        <span className="absolute left-[22%] top-[78%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#F97316] shadow-md" />
+        <span className="absolute left-[82%] top-[76%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#8B5CF6] shadow-md" />
       </motion.div>
 
-      {/* User pin - center, grows when TOP */}
+      {/* User pin — central, com halo azul claro destacando */}
       <motion.div
         initial={{ scale: 0.9 }}
-        animate={{ scale: isTop ? 1.2 : 1 }}
+        animate={{ scale: isTop ? 1.15 : 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       >
+        {/* Soft blue halo (always visible) */}
+        <motion.span
+          animate={{ scale: [1, 1.5, 1], opacity: [0.4, 0.15, 0.4] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className={`absolute -inset-2 rounded-full ${
+            isTop ? "bg-[#22C55E]/40" : "bg-[#3B82F6]/35"
+          }`}
+        />
         {isTop && (
           <motion.span
-            animate={{ scale: [1, 2.1], opacity: [0.5, 0] }}
+            animate={{ scale: [1, 2.2], opacity: [0.55, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
             className="absolute inset-0 rounded-full bg-[#22C55E]"
           />
         )}
+        {/* Pin */}
         <span
           className={[
-            "relative flex size-6 items-center justify-center rounded-full border-[2.5px] border-white shadow-md transition-colors",
+            "relative flex size-7 items-center justify-center rounded-full border-[2.5px] border-white shadow-lg transition-colors",
             isTop ? "bg-[#22C55E]" : "bg-[#3B82F6]",
           ].join(" ")}
         >
-          <MapPin className="size-3 text-white" aria-hidden="true" />
+          <MapPin className="size-3.5 text-white" aria-hidden="true" />
         </span>
-        {/* "Você está aqui" tooltip when TOP */}
         <AnimatePresence>
           {isTop && (
             <motion.span
@@ -164,7 +174,7 @@ function MiniMap({ isTop }: { isTop: boolean }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ delay: 0.3 }}
-              className="absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#22C55E] px-1.5 py-[2px] text-[8px] font-bold text-white shadow-md"
+              className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#22C55E] px-2 py-[2px] text-[9px] font-bold text-white shadow-md"
             >
               VOCÊ · #1
             </motion.span>
@@ -174,7 +184,18 @@ function MiniMap({ isTop }: { isTop: boolean }) {
 
       {/* Compass + Maps watermark */}
       <span className="absolute right-1.5 top-1.5 flex size-5 items-center justify-center rounded-full bg-white shadow-sm">
-        <Navigation className="size-2.5 text-[#3B82F6]" aria-hidden="true" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          className="size-3 text-[#3B82F6]"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2 L15 10 L22 12 L15 14 L12 22 L9 14 L2 12 L9 10 Z"
+            fill="currentColor"
+            opacity="0.85"
+          />
+        </svg>
       </span>
       <span className="absolute bottom-1 right-2 text-[8px] font-medium uppercase tracking-wider text-gray-500/80">
         Maps
@@ -308,19 +329,25 @@ function ResultCard({
         </p>
       </div>
 
-      {/* Action buttons appear on user card when TOP */}
-      {userHighlight && (
+      {/* Action buttons — sempre visíveis no card do user (Phone azul + WhatsApp verde) */}
+      {isUser && (
         <motion.div
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.25 }}
-          className="hidden shrink-0 items-center gap-1 sm:flex"
+          transition={{ delay: 0.2 }}
+          className="flex shrink-0 items-center gap-1.5"
         >
-          <span className="flex size-7 items-center justify-center rounded-md bg-[#22C55E] text-white shadow-sm">
-            <Phone className="size-3.5" aria-hidden="true" />
+          <span
+            className="flex size-7 items-center justify-center rounded-full bg-[#3B82F6]/10 text-[#3B82F6] ring-1 ring-[#3B82F6]/30 sm:size-8"
+            aria-label="Ligar"
+          >
+            <Phone className="size-3.5 sm:size-4" aria-hidden="true" />
           </span>
-          <span className="flex size-7 items-center justify-center rounded-md bg-[#3B82F6] text-white shadow-sm">
-            <Navigation className="size-3.5" aria-hidden="true" />
+          <span
+            className="flex size-7 items-center justify-center rounded-full bg-[#25D366]/12 text-[#25D366] ring-1 ring-[#25D366]/30 sm:size-8"
+            aria-label="WhatsApp"
+          >
+            <WhatsappIcon className="size-3.5 text-[#25D366] sm:size-4" />
           </span>
         </motion.div>
       )}
@@ -525,8 +552,8 @@ export function GoogleSearchAnimation() {
     <div className="relative w-full max-w-[480px]">
       {/* Floating notification cards (lg+) */}
       <NotificationCard
-        title="Sua Pizzaria subiu para #1"
-        subtitle="Há 2 segundos · pizzaria perto de mim"
+        title="Sua Empresa subiu para #1"
+        subtitle="Há 2 segundos · sua empresa"
         icon={<TrendingUp className="size-4 text-white" aria-hidden="true" />}
         accent="bg-gradient-to-br from-[#22C55E] to-[#16A34A]"
         visible={isTop || phase === PHASE_CLIMBING}
@@ -568,13 +595,12 @@ export function GoogleSearchAnimation() {
         <TrendingUp className="size-5 text-[#22C55E] sm:size-6" />
       </motion.div>
 
-      {/* Google search panel — fixed height to prevent layout shift */}
+      {/* Google search panel — adaptive height: auto in mobile, fixed in sm+ */}
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-        className="relative z-10 flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-2xl shadow-black/8"
-        style={{ height: "604px" }}
+        className="relative z-10 flex w-full min-h-[520px] flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-2xl shadow-black/8 sm:h-[604px] sm:min-h-0"
       >
         {/* ── Browser-style top bar ── */}
         <div className="flex shrink-0 items-center gap-1.5 border-b border-gray-100 bg-gray-50 px-3 py-2">
@@ -597,7 +623,7 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Google logo + Maps + user avatar ── */}
-        <div className="flex shrink-0 items-center justify-between px-4 pb-2 pt-4">
+        <div className="flex shrink-0 items-center justify-between px-3 pb-2 pt-3 sm:px-4 sm:pt-4">
           <div className="flex items-center gap-1">
             <svg width="74" height="24" viewBox="0 0 74 24" fill="none" aria-label="Google">
               <path d="M9.24 19.2C4.14 19.2 0 15.06 0 9.96C0 4.86 4.14 0.72 9.24 0.72C12.06 0.72 14.16 1.8 15.72 3.3L13.74 5.28C12.6 4.2 11.1 3.36 9.24 3.36C5.58 3.36 2.7 6.3 2.7 9.96C2.7 13.62 5.58 16.56 9.24 16.56C11.52 16.56 12.84 15.6 13.68 14.76C14.34 14.1 14.76 13.14 14.88 11.82H9.24V9.18H17.4C17.46 9.54 17.52 9.96 17.52 10.44C17.52 12.48 16.92 14.94 15.12 16.74C13.38 18.54 11.16 19.2 9.24 19.2Z" fill="#4285F4" />
@@ -619,8 +645,8 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Search bar ── */}
-        <div className="mx-4 mb-3 shrink-0">
-          <div className="flex h-11 items-center gap-2 rounded-full border border-gray-200 bg-white px-4 shadow-sm">
+        <div className="mx-3 mb-3 shrink-0 sm:mx-4">
+          <div className="flex h-10 items-center gap-2 rounded-full border border-gray-200 bg-white px-3 shadow-sm sm:h-11 sm:px-4">
             <Search className="size-4 shrink-0 text-gray-400" />
             <span className="flex-1 truncate text-sm text-gray-800">
               {typedText}
@@ -648,7 +674,7 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Filter chips ── */}
-        <div className="mb-2 flex shrink-0 items-center gap-1.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mb-2 flex shrink-0 items-center gap-1.5 overflow-x-auto px-3 pb-1 sm:px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[
             { label: "Avaliados ↑", active: true },
             { label: "Aberto agora", active: false },
@@ -670,7 +696,7 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Mini Map ── */}
-        <div className="mx-4 mb-3 shrink-0">
+        <div className="mx-3 mb-3 shrink-0 sm:mx-4">
           <MiniMap isTop={isTop} />
         </div>
 
