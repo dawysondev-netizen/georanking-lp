@@ -89,40 +89,190 @@ function Stars({ rating, size = 11 }: { rating: number; size?: number }) {
 /* ─── Mini Maps preview ─── */
 function MiniMap({ isTop }: { isTop: boolean }) {
   return (
-    <div className="relative h-[96px] overflow-hidden rounded-lg border border-gray-200 bg-[#E8EEF4] sm:h-[104px]">
+    <div className="relative h-[128px] overflow-hidden rounded-xl border border-[#CFDCEA] bg-[#EDF2F7] shadow-inner shadow-[#3B82F6]/5 sm:h-[136px]">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(135deg, #EAF1F8 0%, #E1EBF4 45%, #DBE6F0 100%)",
+        }}
+      />
       <svg
         className="absolute inset-0 size-full"
-        viewBox="0 0 240 100"
+        viewBox="0 0 240 128"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="mapGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#F0F4F9" />
-            <stop offset="100%" stopColor="#D8E2EC" />
+          <linearGradient id="mapBgGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#F0F5FA" />
+            <stop offset="55%" stopColor="#E5EDF5" />
+            <stop offset="100%" stopColor="#D9E4EE" />
           </linearGradient>
+          <linearGradient id="riverGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#A5C7E8" stopOpacity="0.5" />
+            <stop offset="50%" stopColor="#7FAED9" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#A5C7E8" stopOpacity="0.5" />
+          </linearGradient>
+          <linearGradient id="parkGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#B7E0BD" />
+            <stop offset="100%" stopColor="#8FCB99" />
+          </linearGradient>
+          <linearGradient id="buildingGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#E4ECF4" />
+            <stop offset="100%" stopColor="#C8D4E2" />
+          </linearGradient>
+          <filter id="mapShadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="1" stdDeviation="0.6" floodOpacity="0.15" />
+          </filter>
         </defs>
-        <rect width="240" height="100" fill="url(#mapGradient)" />
-        {/* Streets */}
-        <path d="M 0 30 L 240 26" stroke="#fff" strokeWidth="4" />
-        <path d="M 0 66 L 240 70" stroke="#fff" strokeWidth="4" />
-        <path d="M 60 0 L 56 100" stroke="#fff" strokeWidth="3.5" />
-        <path d="M 144 0 L 148 100" stroke="#fff" strokeWidth="3.5" />
-        <path d="M 200 0 L 204 100" stroke="#fff" strokeWidth="2.5" />
-        <path d="M 28 0 L 24 100" stroke="#fff" strokeWidth="1.8" opacity="0.6" />
-        <path d="M 100 0 L 102 100" stroke="#fff" strokeWidth="1.8" opacity="0.6" />
-        {/* Park / green areas */}
-        <ellipse cx="40" cy="84" rx="24" ry="12" fill="#C8E6C9" />
-        <ellipse cx="180" cy="14" rx="22" ry="9" fill="#C8E6C9" />
-        <ellipse cx="118" cy="50" rx="10" ry="5" fill="#C8E6C9" opacity="0.6" />
-        {/* Street labels */}
-        <text x="92" y="22" fontSize="6.5" fill="#8B95A3" fontFamily="system-ui" fontWeight="500">
+
+        {/* Base */}
+        <rect width="240" height="128" fill="url(#mapBgGradient)" />
+
+        {/* River winding through */}
+        <path
+          d="M -10 102 Q 30 90, 65 96 T 130 80 T 195 70 T 250 65"
+          stroke="url(#riverGradient)"
+          strokeWidth="11"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <path
+          d="M -10 102 Q 30 90, 65 96 T 130 80 T 195 70 T 250 65"
+          stroke="#FFFFFF"
+          strokeWidth="0.8"
+          fill="none"
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+
+        {/* Highways (wider, beige) */}
+        <path d="M -10 22 L 250 18" stroke="#F4D9A8" strokeWidth="10" opacity="0.75" />
+        <path d="M -10 22 L 250 18" stroke="#FFF6E3" strokeWidth="2" strokeDasharray="5 4" />
+
+        {/* Main streets (white) */}
+        <path d="M -10 42 L 250 38" stroke="#FFFFFF" strokeWidth="6" />
+        <path d="M -10 78 L 250 82" stroke="#FFFFFF" strokeWidth="6" />
+        <path d="M 56 -8 L 52 138" stroke="#FFFFFF" strokeWidth="5" />
+        <path d="M 142 -8 L 148 138" stroke="#FFFFFF" strokeWidth="5" />
+        <path d="M 202 -8 L 207 138" stroke="#FFFFFF" strokeWidth="4" />
+
+        {/* Secondary streets (lighter) */}
+        <path d="M 26 -8 L 22 138" stroke="#FFFFFF" strokeWidth="2.5" opacity="0.85" />
+        <path d="M 98 -8 L 100 138" stroke="#FFFFFF" strokeWidth="2.5" opacity="0.85" />
+        <path d="M 175 -8 L 177 138" stroke="#FFFFFF" strokeWidth="2.2" opacity="0.8" />
+        <path d="M -10 58 L 250 56" stroke="#FFFFFF" strokeWidth="2.2" opacity="0.75" />
+        <path d="M -10 108 L 250 110" stroke="#FFFFFF" strokeWidth="2.2" opacity="0.7" />
+
+        {/* Animated route (suggested path) */}
+        <motion.path
+          d="M 30 118 L 30 80 L 80 80 L 80 50 L 130 50 L 130 32 L 200 32"
+          stroke="#3B82F6"
+          strokeWidth="2.5"
+          strokeDasharray="6 5"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.8"
+          animate={{ strokeDashoffset: [0, -22] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Parks (green, irregular shapes) */}
+        <path
+          d="M 18 95 Q 28 86, 40 88 Q 56 90, 60 102 Q 58 116, 44 118 Q 28 118, 20 110 Z"
+          fill="url(#parkGradient)"
+          filter="url(#mapShadow)"
+        />
+        <path
+          d="M 165 16 Q 175 8, 195 12 Q 210 18, 208 30 Q 200 38, 180 36 Q 168 30, 165 22 Z"
+          fill="url(#parkGradient)"
+          filter="url(#mapShadow)"
+        />
+        <circle cx="113" cy="64" r="9" fill="url(#parkGradient)" opacity="0.85" />
+        {/* Trees inside parks */}
+        <circle cx="38" cy="100" r="2" fill="#7FB888" opacity="0.85" />
+        <circle cx="45" cy="106" r="1.8" fill="#7FB888" opacity="0.85" />
+        <circle cx="186" cy="22" r="2" fill="#7FB888" opacity="0.85" />
+        <circle cx="180" cy="28" r="1.6" fill="#7FB888" opacity="0.85" />
+
+        {/* Buildings (with shadow + gradient) */}
+        <g filter="url(#mapShadow)">
+          <rect x="11" y="46" width="13" height="11" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="29" y="44" width="11" height="13" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="62" y="13" width="14" height="10" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="79" y="11" width="10" height="14" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="62" y="62" width="18" height="12" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="105" y="68" width="14" height="10" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="124" y="64" width="10" height="14" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="152" y="44" width="14" height="11" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="180" y="46" width="11" height="9" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="151" y="84" width="20" height="12" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="174" y="86" width="13" height="10" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="213" y="44" width="14" height="11" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="213" y="60" width="10" height="14" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="106" y="14" width="14" height="9" rx="1.5" fill="url(#buildingGradient)" />
+          <rect x="125" y="13" width="10" height="11" rx="1.5" fill="url(#buildingGradient)" />
+        </g>
+
+        {/* Street labels (with subtle outline) */}
+        <text
+          x="91"
+          y="30"
+          fontSize="6"
+          fill="#5C6873"
+          fontFamily="system-ui"
+          fontWeight="600"
+          stroke="white"
+          strokeWidth="2.2"
+          paintOrder="stroke"
+          strokeLinejoin="round"
+        >
           Av. Brasil
         </text>
-        <text x="155" y="62" fontSize="6.5" fill="#8B95A3" fontFamily="system-ui" fontWeight="500">
+        <text
+          x="155"
+          y="74"
+          fontSize="6"
+          fill="#5C6873"
+          fontFamily="system-ui"
+          fontWeight="600"
+          stroke="white"
+          strokeWidth="2.2"
+          paintOrder="stroke"
+          strokeLinejoin="round"
+        >
           R. das Flores
         </text>
+        <text
+          x="14"
+          y="124"
+          fontSize="5.5"
+          fill="#7E8A95"
+          fontFamily="system-ui"
+          fontWeight="500"
+          opacity="0.85"
+        >
+          Centro
+        </text>
       </svg>
+
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: ["-140%", "260%"], opacity: [0, 0.55, 0] }}
+        transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+        className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-transparent via-white/55 to-transparent blur-sm"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.18]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(59,130,246,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.18) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       {/* Competitor pins */}
       <motion.div
@@ -130,17 +280,26 @@ function MiniMap({ isTop }: { isTop: boolean }) {
         transition={{ duration: 0.5 }}
         className="absolute inset-0"
       >
-        <span className="absolute left-[18%] top-[28%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#EF4444] shadow-md" />
-        <span className="absolute left-[78%] top-[28%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#EAB308] shadow-md" />
-        <span className="absolute left-[22%] top-[78%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#F97316] shadow-md" />
-        <span className="absolute left-[82%] top-[76%] flex size-3 items-center justify-center rounded-full border-2 border-white bg-[#8B5CF6] shadow-md" />
+        {[
+          ["left-[17%] top-[31%] bg-[#EF4444]", 0],
+          ["left-[79%] top-[31%] bg-[#EAB308]", 0.2],
+          ["left-[23%] top-[77%] bg-[#F97316]", 0.4],
+          ["left-[83%] top-[74%] bg-[#8B5CF6]", 0.6],
+        ].map(([className, delay]) => (
+          <motion.span
+            key={className}
+            animate={{ y: [0, -2, 0], scale: [1, 1.08, 1] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: Number(delay) }}
+            className={`absolute flex size-3 items-center justify-center rounded-full border-2 border-white shadow-md ${className}`}
+          />
+        ))}
       </motion.div>
 
       {/* User pin — central, com halo azul claro destacando */}
       <motion.div
         initial={{ scale: 0.9 }}
-        animate={{ scale: isTop ? 1.15 : 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        animate={{ scale: isTop ? [1.08, 1.16, 1.08] : [0.98, 1.03, 0.98] }}
+        transition={{ duration: isTop ? 2.2 : 2.6, repeat: Infinity, ease: "easeInOut" }}
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       >
         {/* Soft blue halo (always visible) */}
@@ -161,11 +320,11 @@ function MiniMap({ isTop }: { isTop: boolean }) {
         {/* Pin */}
         <span
           className={[
-            "relative flex size-7 items-center justify-center rounded-full border-[2.5px] border-white shadow-lg transition-colors",
+            "relative flex size-9 items-center justify-center rounded-full border-[3px] border-white shadow-xl transition-colors",
             isTop ? "bg-[#22C55E]" : "bg-[#3B82F6]",
           ].join(" ")}
         >
-          <MapPin className="size-3.5 text-white" aria-hidden="true" />
+          <MapPin className="size-4 text-white" aria-hidden="true" />
         </span>
         <AnimatePresence>
           {isTop && (
@@ -183,11 +342,11 @@ function MiniMap({ isTop }: { isTop: boolean }) {
       </motion.div>
 
       {/* Compass + Maps watermark */}
-      <span className="absolute right-1.5 top-1.5 flex size-5 items-center justify-center rounded-full bg-white shadow-sm">
+      <span className="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white shadow-sm">
         <svg
           viewBox="0 0 24 24"
           fill="none"
-          className="size-3 text-[#3B82F6]"
+          className="size-3.5 text-[#3B82F6]"
           aria-hidden="true"
         >
           <path
@@ -197,7 +356,7 @@ function MiniMap({ isTop }: { isTop: boolean }) {
           />
         </svg>
       </span>
-      <span className="absolute bottom-1 right-2 text-[8px] font-medium uppercase tracking-wider text-gray-500/80">
+      <span className="absolute bottom-1.5 right-2 text-[8px] font-semibold uppercase tracking-wider text-gray-500/80">
         Maps
       </span>
       {/* Zoom controls */}
@@ -248,9 +407,25 @@ function ResultCard({
   const userHighlight = isUser && isTop;
 
   return (
-    <div
+    <motion.div
+      layout
+      animate={{
+        y: userHighlight ? [0, -1.5, 0] : 0,
+        boxShadow: userHighlight
+          ? [
+              "0 10px 28px rgba(34,197,94,0.12)",
+              "0 16px 38px rgba(34,197,94,0.22)",
+              "0 10px 28px rgba(34,197,94,0.12)",
+            ]
+          : "0 0 0 rgba(0,0,0,0)",
+      }}
+      transition={{
+        layout: { duration: 0.35, ease: "easeOut" },
+        y: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
+        boxShadow: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
+      }}
       className={[
-        "relative flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-all duration-500",
+        "relative flex items-center gap-2.5 overflow-hidden rounded-xl px-2.5 py-2 transition-all duration-500",
         userHighlight
           ? "bg-[#22C55E]/8 ring-2 ring-[#22C55E]/35 shadow-sm"
           : isUser
@@ -260,6 +435,14 @@ function ResultCard({
           : "opacity-95",
       ].join(" ")}
     >
+      {isUser && (
+        <motion.span
+          aria-hidden="true"
+          animate={{ x: ["-120%", "240%"], opacity: [0, 0.35, 0] }}
+          transition={{ duration: 2.7, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+          className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-transparent via-white to-transparent"
+        />
+      )}
       {/* Position badge */}
       <div
         className={[
@@ -324,8 +507,14 @@ function ResultCard({
           {category} <span className="text-gray-300">·</span> {distance}{" "}
           <span className="text-gray-300">·</span>{" "}
           <span className={open ? "font-medium text-[#22C55E]" : "font-medium text-[#EF4444]"}>
-            {open ? `Aberto${closesAt ? ` · fecha ${closesAt}` : ""}` : "Fechado"}
+            {open ? "Aberto" : "Fechado"}
           </span>
+          {open && closesAt && (
+            <span className="hidden text-gray-500 sm:inline">
+              {" "}
+              <span className="text-gray-300">·</span> fecha {closesAt}
+            </span>
+          )}
         </p>
       </div>
 
@@ -370,7 +559,7 @@ function ResultCard({
           </span>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -430,9 +619,9 @@ function NotificationCard({
 
 /* ─── Main component ─── */
 export function GoogleSearchAnimation() {
-  const [phase, setPhase] = useState(PHASE_TYPING);
-  const [typedText, setTypedText] = useState("");
-  const [currentPosition, setCurrentPosition] = useState(12);
+  const [phase, setPhase] = useState(PHASE_TOP);
+  const [typedText, setTypedText] = useState(SEARCH_QUERY);
+  const [currentPosition, setCurrentPosition] = useState(1);
 
   /* ── Typing ── */
   useEffect(() => {
@@ -481,11 +670,12 @@ export function GoogleSearchAnimation() {
   /* ── Restart loop ── */
   useEffect(() => {
     if (phase !== PHASE_TOP) return;
+    setTypedText(SEARCH_QUERY);
+    setCurrentPosition(1);
     const t = setTimeout(() => {
-      setPhase(PHASE_TYPING);
-      setTypedText("");
-      setCurrentPosition(12);
-    }, 6000);
+      setCurrentPosition(5);
+      setPhase(PHASE_CLIMBING);
+    }, 4200);
     return () => clearTimeout(t);
   }, [phase]);
 
@@ -549,11 +739,13 @@ export function GoogleSearchAnimation() {
   }, [showResults, currentPosition]);
 
   return (
-    <div className="relative w-full max-w-[480px]">
+    <div className="relative w-full max-w-[430px] lg:max-w-[380px] xl:max-w-[400px]">
       {/* Floating notification cards (lg+) */}
       <NotificationCard
-        title="Sua Empresa subiu para #1"
-        subtitle="Há 2 segundos · sua empresa"
+        title={
+          isTop ? "Sua Empresa chegou ao #1" : `Sua Empresa agora #${currentPosition}`
+        }
+        subtitle={isTop ? "Há 2 segundos · sua empresa" : "Subindo no Maps · sua empresa"}
         icon={<TrendingUp className="size-4 text-white" aria-hidden="true" />}
         accent="bg-gradient-to-br from-[#22C55E] to-[#16A34A]"
         visible={isTop || phase === PHASE_CLIMBING}
@@ -597,13 +789,30 @@ export function GoogleSearchAnimation() {
 
       {/* Google search panel — adaptive height: auto in mobile, fixed in sm+ */}
       <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.96 }}
+        initial={false}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-        className="relative z-10 flex w-full min-h-[520px] flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-2xl shadow-black/8 sm:h-[604px] sm:min-h-0"
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="relative z-10 flex min-h-[600px] w-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-[0_26px_70px_rgba(15,23,42,0.14)] sm:h-[640px] sm:min-h-0 lg:h-[620px] xl:h-[640px]"
       >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.38]"
+          style={{
+            background:
+              "radial-gradient(circle at 20% 12%, rgba(59,130,246,0.12), transparent 28%), radial-gradient(circle at 82% 24%, rgba(34,197,94,0.1), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,250,252,0.82))",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(#0F172A 1px, transparent 1px), linear-gradient(90deg, #0F172A 1px, transparent 1px)",
+            backgroundSize: "18px 18px",
+          }}
+        />
         {/* ── Browser-style top bar ── */}
-        <div className="flex shrink-0 items-center gap-1.5 border-b border-gray-100 bg-gray-50 px-3 py-2">
+        <div className="relative z-10 flex shrink-0 items-center gap-1.5 border-b border-gray-100 bg-gray-50/88 px-3 py-2 backdrop-blur">
           <span className="size-2.5 rounded-full bg-[#EF4444]/70" />
           <span className="size-2.5 rounded-full bg-[#EAB308]/70" />
           <span className="size-2.5 rounded-full bg-[#22C55E]/70" />
@@ -623,7 +832,7 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Google logo + Maps + user avatar ── */}
-        <div className="flex shrink-0 items-center justify-between px-3 pb-2 pt-3 sm:px-4 sm:pt-4">
+        <div className="relative z-10 flex shrink-0 items-center justify-between px-3 pb-2 pt-3 sm:px-4 sm:pt-4">
           <div className="flex items-center gap-1">
             <svg width="74" height="24" viewBox="0 0 74 24" fill="none" aria-label="Google">
               <path d="M9.24 19.2C4.14 19.2 0 15.06 0 9.96C0 4.86 4.14 0.72 9.24 0.72C12.06 0.72 14.16 1.8 15.72 3.3L13.74 5.28C12.6 4.2 11.1 3.36 9.24 3.36C5.58 3.36 2.7 6.3 2.7 9.96C2.7 13.62 5.58 16.56 9.24 16.56C11.52 16.56 12.84 15.6 13.68 14.76C14.34 14.1 14.76 13.14 14.88 11.82H9.24V9.18H17.4C17.46 9.54 17.52 9.96 17.52 10.44C17.52 12.48 16.92 14.94 15.12 16.74C13.38 18.54 11.16 19.2 9.24 19.2Z" fill="#4285F4" />
@@ -645,7 +854,7 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Search bar ── */}
-        <div className="mx-3 mb-3 shrink-0 sm:mx-4">
+        <div className="relative z-10 mx-3 mb-3 shrink-0 sm:mx-4">
           <div className="flex h-10 items-center gap-2 rounded-full border border-gray-200 bg-white px-3 shadow-sm sm:h-11 sm:px-4">
             <Search className="size-4 shrink-0 text-gray-400" />
             <span className="flex-1 truncate text-sm text-gray-800">
@@ -674,7 +883,7 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Filter chips ── */}
-        <div className="mb-2 flex shrink-0 items-center gap-1.5 overflow-x-auto px-3 pb-1 sm:px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="relative z-10 mb-2 flex shrink-0 items-center gap-1.5 overflow-x-auto px-3 pb-1 sm:px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[
             { label: "Avaliados ↑", active: true },
             { label: "Aberto agora", active: false },
@@ -696,12 +905,12 @@ export function GoogleSearchAnimation() {
         </div>
 
         {/* ── Mini Map ── */}
-        <div className="mx-3 mb-3 shrink-0 sm:mx-4">
+        <div className="relative z-10 mx-3 mb-3 shrink-0 sm:mx-4">
           <MiniMap isTop={isTop} />
         </div>
 
         {/* ── Results area (flex-1 so it takes the rest of the fixed height) ── */}
-        <div className="flex flex-1 flex-col px-3 pb-3">
+        <div className="relative z-10 flex flex-1 flex-col px-3 pb-3">
           <AnimatePresence mode="wait">
             {showResults ? (
               <motion.div
@@ -746,7 +955,7 @@ export function GoogleSearchAnimation() {
                 </div>
 
                 {/* Result triplet */}
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {visibleResults.map((r) => (
                     <ResultCard
                       key={r.key}
@@ -767,37 +976,127 @@ export function GoogleSearchAnimation() {
                   ))}
                 </div>
 
-                {/* TOP state stats */}
-                <AnimatePresence>
-                  {isTop && (
+                {/* Live stats — sempre visíveis a partir de RESULTS_LOW, crescem com o ranking */}
+                {(() => {
+                  // Progresso: 0 quando pos=12, 1 quando pos=1 (TOP)
+                  const progress = Math.min(
+                    Math.max((12 - currentPosition) / 11, 0),
+                    1
+                  );
+                  // Ease-out cubic para o final ficar mais "exponencial"
+                  const eased = 1 - Math.pow(1 - progress, 2.2);
+                  const ligacoes = Math.round(eased * 312);
+                  const visitas = Math.round(eased * 1847);
+                  const rotas = Math.round(eased * 186);
+
+                  const stats = [
+                    {
+                      key: "lig",
+                      label: "Ligações",
+                      value: `+${ligacoes}%`,
+                      icon: Phone,
+                      color: "#22C55E",
+                      bg: "bg-[#22C55E]/8",
+                      ring: "ring-[#22C55E]/30",
+                    },
+                    {
+                      key: "vis",
+                      label: "Visitas",
+                      value: `+${visitas.toLocaleString("pt-BR")}`,
+                      icon: TrendingUp,
+                      color: "#3B82F6",
+                      bg: "bg-[#3B82F6]/8",
+                      ring: "ring-[#3B82F6]/30",
+                    },
+                    {
+                      key: "rot",
+                      label: "Rotas",
+                      value: `+${rotas}`,
+                      icon: MapPin,
+                      color: "#EAB308",
+                      bg: "bg-[#EAB308]/8",
+                      ring: "ring-[#EAB308]/30",
+                    },
+                  ];
+
+                  return (
                     <motion.div
-                      initial={{ opacity: 0, y: 12 }}
+                      initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ delay: 0.25 }}
-                      className="mt-3 grid grid-cols-3 gap-2 px-1"
+                      transition={{ delay: 0.2 }}
+                      className="mt-2.5 grid grid-cols-3 gap-1.5 px-0.5"
                     >
-                      {[
-                        { label: "Ligações", value: "+312%", color: "text-[#22C55E]" },
-                        { label: "Visitas", value: "+1.847", color: "text-[#3B82F6]" },
-                        { label: "Rotas", value: "+186", color: "text-[#EAB308]" },
-                      ].map((stat, idx) => (
-                        <motion.div
-                          key={stat.label}
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.35 + idx * 0.08 }}
-                          className="rounded-lg border border-gray-100 bg-gray-50/60 p-2 text-center"
-                        >
-                          <p className={`text-sm font-bold ${stat.color}`}>{stat.value}</p>
-                          <p className="text-[9px] uppercase tracking-wider text-gray-500">
-                            {stat.label}
-                          </p>
-                        </motion.div>
-                      ))}
+                      {stats.map((stat) => {
+                        const Icon = stat.icon;
+                        return (
+                          <motion.div
+                            key={stat.key}
+                            animate={
+                              isTop
+                                ? {
+                                    boxShadow: [
+                                      `0 0 0 0 ${stat.color}00`,
+                                      `0 0 0 4px ${stat.color}1a`,
+                                      `0 0 0 0 ${stat.color}00`,
+                                    ],
+                                  }
+                                : { boxShadow: "0 0 0 0 transparent" }
+                            }
+                            transition={{
+                              duration: 1.6,
+                              repeat: isTop ? Infinity : 0,
+                              ease: "easeInOut",
+                            }}
+                            className={[
+                              "relative overflow-hidden rounded-lg p-1.5 ring-1 transition-all duration-300",
+                              isTop
+                                ? `${stat.bg} ${stat.ring}`
+                                : "bg-gray-50/60 ring-gray-100",
+                            ].join(" ")}
+                          >
+                            <div className="flex items-center justify-between gap-1">
+                              <Icon
+                                className="size-2.5 shrink-0"
+                                style={{ color: stat.color }}
+                                aria-hidden="true"
+                              />
+                              <p className="truncate text-[8px] font-semibold uppercase tracking-wide text-gray-500">
+                                {stat.label}
+                              </p>
+                            </div>
+                            <div className="mt-0.5 flex items-baseline gap-0.5">
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.p
+                                  key={stat.value}
+                                  initial={{ y: -8, opacity: 0, scale: 0.85 }}
+                                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                                  exit={{ y: 8, opacity: 0, scale: 0.85 }}
+                                  transition={{
+                                    duration: 0.28,
+                                    ease: "easeOut",
+                                  }}
+                                  className="text-[13px] font-extrabold leading-none tracking-tight"
+                                  style={{ color: stat.color }}
+                                >
+                                  {stat.value}
+                                </motion.p>
+                              </AnimatePresence>
+                            </div>
+                            {/* progress bar */}
+                            <div className="mt-1 h-0.5 overflow-hidden rounded-full bg-gray-100">
+                              <motion.div
+                                animate={{ width: `${Math.round(eased * 100)}%` }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                className="h-full rounded-full"
+                                style={{ backgroundColor: stat.color }}
+                              />
+                            </div>
+                          </motion.div>
+                        );
+                      })}
                     </motion.div>
-                  )}
-                </AnimatePresence>
+                  );
+                })()}
 
                 {/* TOP sparkles */}
                 <AnimatePresence>
@@ -822,8 +1121,8 @@ export function GoogleSearchAnimation() {
                     ))}
                 </AnimatePresence>
 
-                {/* Footer */}
-                <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-2 text-[10px] text-gray-400">
+                {/* Footer — só sm+ (libera espaço mobile) */}
+                <div className="mt-auto hidden items-center justify-between border-t border-gray-100 pt-2 text-[10px] text-gray-400 sm:flex">
                   <span className="inline-flex items-center gap-1">
                     <Clock className="size-3" aria-hidden="true" />
                     Atualizado agora

@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -22,6 +23,11 @@ const SIZE_MAP = {
  */
 export function GpsBeacon({ className, size = "md" }: GpsBeaconProps) {
   const cfg = SIZE_MAP[size];
+  const rawId = useId();
+  const id = rawId.replace(/:/g, "");
+  const bodyId = `gps-pin-body-${id}`;
+  const highlightId = `gps-pin-highlight-${id}`;
+  const bottomId = `gps-pin-bottom-${id}`;
 
   return (
     <div
@@ -99,17 +105,17 @@ export function GpsBeacon({ className, size = "md" }: GpsBeaconProps) {
           className="drop-shadow-[0_18px_30px_rgba(29,78,216,0.45)]"
         >
           <defs>
-            <linearGradient id="gps-pin-body" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id={bodyId} x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#7CC0FF" />
               <stop offset="48%" stopColor="#3B82F6" />
               <stop offset="100%" stopColor="#1E40AF" />
             </linearGradient>
-            <radialGradient id="gps-pin-highlight" cx="0.3" cy="0.22" r="0.55">
+            <radialGradient id={highlightId} cx="0.3" cy="0.22" r="0.55">
               <stop offset="0%" stopColor="white" stopOpacity="0.55" />
               <stop offset="55%" stopColor="white" stopOpacity="0.06" />
               <stop offset="100%" stopColor="white" stopOpacity="0" />
             </radialGradient>
-            <radialGradient id="gps-pin-bottom" cx="0.5" cy="0.95" r="0.4">
+            <radialGradient id={bottomId} cx="0.5" cy="0.95" r="0.4">
               <stop offset="0%" stopColor="#1E3A8A" stopOpacity="0.6" />
               <stop offset="100%" stopColor="#1E3A8A" stopOpacity="0" />
             </radialGradient>
@@ -118,17 +124,17 @@ export function GpsBeacon({ className, size = "md" }: GpsBeaconProps) {
           {/* Pin body */}
           <path
             d="M50 0 C22.4 0 0 22.4 0 50 C0 87.5 50 130 50 130 S100 87.5 100 50 C100 22.4 77.6 0 50 0 Z"
-            fill="url(#gps-pin-body)"
+            fill={`url(#${bodyId})`}
           />
           {/* Bottom shading for 3D feel */}
           <path
             d="M50 0 C22.4 0 0 22.4 0 50 C0 87.5 50 130 50 130 S100 87.5 100 50 C100 22.4 77.6 0 50 0 Z"
-            fill="url(#gps-pin-bottom)"
+            fill={`url(#${bottomId})`}
           />
           {/* Top highlight */}
           <path
             d="M50 0 C22.4 0 0 22.4 0 50 C0 87.5 50 130 50 130 S100 87.5 100 50 C100 22.4 77.6 0 50 0 Z"
-            fill="url(#gps-pin-highlight)"
+            fill={`url(#${highlightId})`}
           />
           {/* Inner ring (soft halo) */}
           <circle cx="50" cy="48" r="22" fill="white" opacity="0.25" />

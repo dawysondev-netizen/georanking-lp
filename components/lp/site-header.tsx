@@ -58,7 +58,7 @@ export function SiteHeader() {
 
         <nav
           aria-label="Navegação principal"
-          className="hidden items-center gap-7 text-sm font-medium text-[#6B7280] md:flex"
+          className="hidden items-center gap-7 text-sm font-medium text-[#6B7280] lg:flex"
         >
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="transition hover:text-[#1A1A1A]">
@@ -67,7 +67,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3 md:ml-4 lg:ml-10">
+        <div className="flex items-center gap-2 sm:gap-3 lg:ml-10">
           <Link
             href={SITE_INFO.loginUrl}
             target="_blank"
@@ -95,7 +95,7 @@ export function SiteHeader() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileOpen}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-[#1A1A1A]/10 bg-white text-[#1A1A1A] transition hover:bg-[#F5F5F5] md:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-lg border border-[#1A1A1A]/10 bg-white text-[#1A1A1A] transition hover:bg-[#F5F5F5] lg:hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
@@ -137,7 +137,7 @@ export function SiteHeader() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={closeMenu}
-              className="fixed inset-x-0 top-16 bottom-0 -z-10 bg-[#1A1A1A]/40 backdrop-blur-sm md:hidden"
+              className="fixed inset-x-0 top-16 bottom-0 -z-10 bg-[#1A1A1A]/40 backdrop-blur-sm lg:hidden"
               aria-hidden="true"
             />
             <motion.div
@@ -147,7 +147,7 @@ export function SiteHeader() {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
               id="mobile-menu"
-              className="absolute inset-x-0 top-16 border-b border-[#1A1A1A]/10 bg-white shadow-2xl shadow-black/10 md:hidden"
+              className="absolute inset-x-0 top-16 border-b border-[#1A1A1A]/10 bg-white shadow-2xl shadow-black/10 lg:hidden"
             >
               <nav
                 aria-label="Navegação mobile"

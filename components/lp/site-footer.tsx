@@ -43,22 +43,22 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#1A1A1A]/8 bg-white px-4 py-12 text-sm text-[#6B7280] sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div className="space-y-4">
+    <footer className="border-t border-[#1A1A1A]/8 bg-white px-4 py-10 text-sm text-[#6B7280] sm:px-6 sm:py-12 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl gap-8 sm:gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="space-y-3.5 text-center sm:col-span-2 sm:text-left lg:col-span-1">
           <Image
             src={SITE_INFO.assets.logoUrl}
             alt={SITE_INFO.name}
             width={168}
             height={36}
             unoptimized
-            className="h-9 w-auto"
+            className="mx-auto h-9 w-auto sm:mx-0"
           />
-          <p className="max-w-sm leading-6 text-[#6B7280]">{SITE_INFO.description}</p>
+          <p className="mx-auto max-w-sm leading-6 text-[#6B7280] sm:mx-0">{SITE_INFO.description}</p>
           <p className="text-xs text-[#9CA3AF]">CNPJ {SITE_INFO.cnpj}</p>
 
           {/* Social icons */}
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex items-center justify-center gap-2 pt-1 sm:justify-start">
             <a
               href={SITE_INFO.socials.instagram}
               target="_blank"
@@ -80,11 +80,11 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div>
+        <div className="text-center sm:text-left">
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">
             Central de vendas
           </h3>
-          <ul className="space-y-3">
+          <ul className="flex flex-col items-center gap-3 sm:items-start sm:space-y-0">
             <li>
               <a
                 href={whatsappUrl}
@@ -119,7 +119,7 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div>
+        <div className="text-center sm:text-left">
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">
             Produto
           </h3>
@@ -134,7 +134,7 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div>
+        <div className="text-center sm:text-left">
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">
             Suporte e legais
           </h3>
@@ -150,7 +150,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 flex w-full max-w-7xl flex-col gap-2 border-t border-[#1A1A1A]/8 pt-6 text-xs text-[#9CA3AF] sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-8 flex w-full max-w-7xl flex-col items-center gap-1.5 border-t border-[#1A1A1A]/8 pt-5 text-center text-[11px] leading-relaxed text-[#9CA3AF] sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:pt-6 sm:text-left sm:text-xs">
         <span>© {year} {SITE_INFO.legalName} — Todos os direitos reservados.</span>
         <span>Operado por {SITE_INFO.parentCompany}.</span>
       </div>

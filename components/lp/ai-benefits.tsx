@@ -79,7 +79,7 @@ function AiVisual({ benefit, index }: { benefit: Benefit; index: number }) {
   ];
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[460px]">
+    <div className="relative mx-auto aspect-[5/4] w-full max-w-[320px] sm:aspect-square sm:max-w-[400px] lg:max-w-[460px]">
       {/* Background radial glow */}
       <motion.div
         key={`glow-${index}`}
@@ -199,21 +199,21 @@ function AiVisual({ benefit, index }: { benefit: Benefit; index: number }) {
         />
       ))}
 
-      {/* Static brand chips at corners */}
+      {/* Static brand chips at corners — sempre visíveis (mobile inset, desktop fora) */}
       <motion.div
         animate={{ y: [-6, 6, -6] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-2 top-12 hidden h-9 items-center gap-1.5 rounded-full border border-[#1A1A1A]/10 bg-white px-3 text-[11px] font-semibold text-[#1A1A1A] shadow-lg sm:flex"
+        className="absolute left-1 top-4 z-10 flex h-7 items-center gap-1 rounded-full border border-[#1A1A1A]/10 bg-white px-2 text-[10px] font-semibold text-[#1A1A1A] shadow-md sm:-left-2 sm:top-12 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-[11px] sm:shadow-lg"
       >
-        <span className="size-2 rounded-full bg-[#22C55E]" />
+        <span className="size-1.5 rounded-full bg-[#22C55E] sm:size-2" />
         24/7 online
       </motion.div>
       <motion.div
         animate={{ y: [6, -6, 6] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-2 bottom-16 hidden h-9 items-center gap-1.5 rounded-full border border-[#1A1A1A]/10 bg-white px-3 text-[11px] font-semibold text-[#1A1A1A] shadow-lg sm:flex"
+        className="absolute right-1 bottom-4 z-10 flex h-7 items-center gap-1 rounded-full border border-[#1A1A1A]/10 bg-white px-2 text-[10px] font-semibold text-[#1A1A1A] shadow-md sm:-right-2 sm:bottom-16 sm:h-9 sm:gap-1.5 sm:px-3 sm:text-[11px] sm:shadow-lg"
       >
-        <Sparkles className="size-3 text-[#EAB308]" aria-hidden="true" />
+        <Sparkles className="size-2.5 text-[#EAB308] sm:size-3" aria-hidden="true" />
         IA dedicada
       </motion.div>
     </div>
@@ -280,17 +280,17 @@ export function AiBenefits() {
 
         {/* Main grid */}
         <div
-          className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16"
+          className="mt-10 grid gap-6 sm:mt-12 sm:gap-8 lg:mt-16 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Visual lado esquerdo */}
-          <div className="order-2 lg:order-1">
+          {/* Visual — sempre primeiro (topo em mobile, esquerda em desktop) */}
+          <div className="order-1 lg:order-1">
             <AiVisual benefit={current} index={active} />
           </div>
 
-          {/* Lista de benefícios */}
-          <div className="order-1 space-y-3 lg:order-2">
+          {/* Lista de benefícios — min-h fixo para conter a animação e não empurrar próximas seções */}
+          <div className="order-2 flex min-h-[420px] flex-col gap-2.5 sm:min-h-[460px] sm:gap-3 lg:order-2 lg:min-h-[440px]">
             {BENEFITS.map((b, i) => {
               const isActive = i === active;
               const Icon = b.icon;
@@ -358,7 +358,7 @@ export function AiBenefits() {
                             transition={{ duration: 0.3 }}
                             className="overflow-hidden"
                           >
-                            <p className="mt-2 text-sm leading-6 text-[#6B7280]">
+                            <p className="mt-2 min-h-[68px] text-sm leading-6 text-[#6B7280] sm:min-h-[56px]">
                               {b.description}
                             </p>
                           </motion.div>
@@ -368,7 +368,7 @@ export function AiBenefits() {
                   </div>
 
                   {/* Gradient line — progress when active, static thin line when idle */}
-                  <div className="relative h-1 bg-[#F5F5F5]">
+                  <div className="relative h-1.5 bg-[#F5F5F5] sm:h-1">
                     <motion.div
                       key={`bar-${b.key}-${isActive ? "active" : "idle"}-${active}`}
                       initial={{ width: isActive ? "0%" : "0%" }}

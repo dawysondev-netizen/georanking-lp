@@ -7,7 +7,6 @@ import {
   ArrowRight,
   BarChart3,
   Check,
-  ChevronRight,
   CircleDot,
   Cpu,
   Crown,
@@ -40,6 +39,7 @@ import { FeatureVisual } from "@/components/lp/feature-visuals";
 import { GoogleSearchAnimation } from "@/components/lp/google-search-animation";
 import { GpsBeacon } from "@/components/lp/gps-beacon";
 import { PhoneHighlight } from "@/components/lp/phone-highlight";
+import { TrialOfferCard } from "@/components/lp/trial-offer-card";
 import { VideoTestimonials } from "@/components/lp/video-testimonials";
 import { WhatsappIcon } from "@/components/lp/whatsapp-icon";
 import { FAQS } from "@/content/faq";
@@ -159,10 +159,10 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden bg-[#F5F5F5] text-[#1A1A1A]">
-      {/* ═══════════ HERO — primeira dobra, altura fixa ═══════════ */}
+      {/* ═══════════ HERO ═══════════ */}
       <section
         id="topo"
-        className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden bg-white"
+        className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-white"
       >
         {/* Background decorativo: mesh gradient + grid */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
@@ -189,72 +189,52 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:px-8 lg:py-16">
-          {/* Left — Text */}
+        <div className="relative mx-auto grid w-full max-w-[1400px] items-center gap-5 px-4 py-5 sm:px-6 sm:py-8 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(420px,0.78fr)_minmax(0,1.22fr)] lg:gap-8 lg:px-8 lg:py-10 xl:gap-10">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="show"
             transition={{ duration: 0.65, ease: "easeOut" }}
-            className="max-w-xl"
+            className="min-w-0"
           >
-            {/* Status badge */}
-            <Badge className="mb-5 inline-flex h-7 items-center gap-1.5 rounded-full border border-[#22C55E]/20 bg-[#22C55E]/8 px-2.5 text-[11px] text-[#16A34A] sm:mb-6 sm:h-8 sm:px-3 sm:text-xs">
-              <span className="relative flex size-2">
-                <motion.span
-                  animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
-                  transition={{ duration: 1.6, repeat: Infinity }}
-                  className="absolute inline-flex size-full rounded-full bg-[#22C55E]"
-                />
-                <span className="relative inline-flex size-2 rounded-full bg-[#22C55E]" />
-              </span>
-              Alta procura na sua região
-            </Badge>
+            <div className="grid grid-cols-[minmax(0,1fr)_7.25rem] items-center gap-2 sm:block">
+              <div className="min-w-0 text-left sm:text-center lg:text-left">
+                <Badge className="mb-3 inline-flex h-7 items-center gap-1.5 rounded-full border border-[#22C55E]/20 bg-[#22C55E]/8 px-2.5 text-[10px] text-[#16A34A] sm:mb-5 sm:h-8 sm:px-3 sm:text-xs">
+                  <span className="relative flex size-2">
+                    <motion.span
+                      animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
+                      transition={{ duration: 1.6, repeat: Infinity }}
+                      className="absolute inline-flex size-full rounded-full bg-[#22C55E]"
+                    />
+                    <span className="relative inline-flex size-2 rounded-full bg-[#22C55E]" />
+                  </span>
+                  <span className="hidden sm:inline">Alta procura na sua região</span>
+                  <span className="sm:hidden">Alta procura</span>
+                </Badge>
 
-            <h1 className="text-balance text-[2rem] font-bold leading-[1.08] text-[#1A1A1A] sm:text-4xl md:text-5xl lg:text-6xl">
-              Seu projeto no{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10 text-[#3B82F6]">topo das pesquisas</span>
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                  className="absolute bottom-1 left-0 -z-0 h-3 w-full origin-left rounded-sm bg-[#3B82F6]/15"
-                />
-              </span>
-            </h1>
-            <p className="mt-4 max-w-lg text-[15px] leading-6 text-[#6B7280] sm:mt-6 sm:text-lg sm:leading-8">
-              Com Geo Ranking coloque sua empresa onde seus clientes estão: no topo do Google e na palma da mão de quem quer comprar.
-            </p>
+                <h1 className="text-balance text-[2.1rem] font-extrabold leading-[1.03] tracking-tight text-[#1A1A1A] min-[390px]:text-[2.28rem] sm:text-5xl md:text-[3.35rem] lg:text-[3.65rem] xl:text-6xl">
+                  Quando seu cliente pesquisa no Google,{" "}
+                  <span className="text-[#3B82F6]">sua empresa aparece?</span>
+                </h1>
+                <p className="mt-3 max-w-lg text-sm leading-6 text-[#6B7280] sm:mx-auto sm:mt-5 sm:text-base sm:leading-7 lg:mx-0 lg:text-lg lg:leading-8">
+                  Mais presença local com o{" "}
+                  <span className="font-semibold text-[#3B82F6]">GeoRanking</span>.
+                </p>
+              </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
-              <Button
-                render={<a href={whatsappPrimary} target="_blank" rel="noreferrer" />}
-                nativeButton={false}
-                className="h-12 w-full rounded-xl bg-[#1A1A1A] px-6 text-base text-white shadow-lg shadow-[#1A1A1A]/20 hover:bg-[#374151] sm:w-auto"
-              >
-                Falar com especialista
-                <ArrowRight className="size-5" aria-hidden="true" />
-              </Button>
-              <a
-                href="#produto"
-                className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold text-[#1A1A1A] transition hover:text-[#3B82F6] sm:h-12"
-              >
-                Ver como funciona
-                <ChevronRight className="size-4" aria-hidden="true" />
-              </a>
+              <div className="-mr-2 flex justify-end sm:hidden" aria-hidden="true">
+                <GpsBeacon size="sm" />
+              </div>
             </div>
 
-            {/* Social proof row — compact mobile */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.5 }}
-              className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 sm:mt-10 sm:gap-x-6 sm:gap-y-4"
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-4 flex flex-wrap items-center justify-start gap-x-3 gap-y-2 sm:mt-7 sm:justify-center sm:gap-x-6 lg:justify-start"
             >
-              {/* Avatar stack */}
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="flex -space-x-2">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <div className="flex -space-x-1.5">
                   {[
                     { c: "from-[#3B82F6] to-[#1D4ED8]", l: "J" },
                     { c: "from-[#22C55E] to-[#15803D]", l: "M" },
@@ -263,67 +243,199 @@ export default function Home() {
                   ].map((a, i) => (
                     <span
                       key={i}
-                      className={`flex size-7 items-center justify-center rounded-full bg-gradient-to-br ${a.c} text-[10px] font-bold text-white ring-2 ring-white sm:size-8 sm:text-xs`}
+                      className={`flex size-6 items-center justify-center rounded-full bg-gradient-to-br ${a.c} text-[9px] font-bold text-white ring-2 ring-white sm:size-7 sm:text-[10px]`}
                     >
                       {a.l}
                     </span>
                   ))}
-                  <span className="flex size-7 items-center justify-center rounded-full bg-[#F5F5F5] text-[10px] font-bold text-[#1A1A1A] ring-2 ring-white sm:size-8">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-[#F5F5F5] text-[9px] font-bold text-[#1A1A1A] ring-2 ring-white sm:size-7 sm:text-[10px]">
                     +7k
                   </span>
                 </div>
-                <div>
-                  <div className="flex items-center gap-0.5 sm:gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="size-3 fill-[#EAB308] text-[#EAB308] sm:size-3.5"
-                        aria-hidden="true"
-                      />
-                    ))}
-                    <span className="ml-1 text-[11px] font-semibold text-[#1A1A1A] sm:text-xs">5,0</span>
-                  </div>
-                  <p className="text-[11px] leading-tight text-[#6B7280] sm:text-xs">+7.000 empresas no topo</p>
+                <div className="flex items-center gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="size-3 fill-[#EAB308] text-[#EAB308]"
+                      aria-hidden="true"
+                    />
+                  ))}
+                  <span className="ml-1 text-[11px] font-semibold text-[#1A1A1A]">5,0</span>
                 </div>
               </div>
 
-              {/* Compact bullets */}
-              <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-[#6B7280] sm:gap-x-4 sm:text-xs">
+              <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-[#6B7280] sm:text-xs">
                 <li className="inline-flex items-center gap-1">
-                  <Check className="size-3 text-[#22C55E] sm:size-3.5" aria-hidden="true" />
+                  <Check className="size-3 text-[#22C55E]" aria-hidden="true" />
                   Sem fidelidade
                 </li>
                 <li className="inline-flex items-center gap-1">
-                  <Check className="size-3 text-[#22C55E] sm:size-3.5" aria-hidden="true" />
-                  Teste grátis 7 dias
+                  <Check className="size-3 text-[#22C55E]" aria-hidden="true" />
+                  Teste 7 dias
                 </li>
                 <li className="inline-flex items-center gap-1">
-                  <Check className="size-3 text-[#22C55E] sm:size-3.5" aria-hidden="true" />
-                  API oficial Google
+                  <Check className="size-3 text-[#22C55E]" aria-hidden="true" />
+                  API Google
                 </li>
               </ul>
             </motion.div>
+
+            <div className="mt-4 -ml-2 grid grid-cols-[minmax(0,1fr)_8rem] gap-2 min-[390px]:grid-cols-[minmax(0,1fr)_8.5rem] min-[390px]:gap-3 sm:mx-auto sm:max-w-xl sm:grid-cols-[1fr_0.78fr] lg:hidden">
+              <motion.div
+                initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
+                className="relative min-w-0 overflow-hidden rounded-2xl border border-[#1A1A1A]/8 bg-white p-3 shadow-xl shadow-[#3B82F6]/10"
+              >
+                <motion.div
+                  animate={{ y: [-3, 3, -3] }}
+                  transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute right-3 top-12 z-10 hidden rounded-full bg-white/95 px-2 py-1 text-[9px] font-bold text-[#22C55E] shadow-lg shadow-black/10 min-[390px]:block"
+                >
+                  subindo
+                </motion.div>
+                <div className="mb-3 flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-[#EF4444]/70" />
+                  <span className="size-2 rounded-full bg-[#EAB308]/70" />
+                  <span className="size-2 rounded-full bg-[#22C55E]/70" />
+                  <span className="ml-1 h-5 min-w-0 flex-1 rounded-full bg-[#F3F4F6] px-3 text-[9px] leading-5 text-[#6B7280]">
+                    google.com/maps
+                  </span>
+                </div>
+                <div className="flex h-9 items-center rounded-full border border-[#1A1A1A]/10 px-3 text-xs text-[#6B7280]">
+                  sua empresa
+                </div>
+                <div className="mt-3 grid grid-cols-4 gap-1.5 text-[8px] text-[#6B7280]">
+                  {["Avaliação", "Aberto", "Distância", "Preço"].map((item) => (
+                    <span key={item} className="truncate rounded-full bg-[#F8FAFC] px-2 py-1 text-center ring-1 ring-[#1A1A1A]/8">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <div className="relative mt-3 h-24 overflow-hidden rounded-xl bg-[#E8EEF4]">
+                  <div className="absolute left-0 top-7 h-2 w-full bg-white" />
+                  <div className="absolute left-1/2 top-0 h-full w-2 -translate-x-1/2 bg-white" />
+                  <div className="absolute left-3 top-16 h-2 w-full rotate-[-8deg] bg-white" />
+                  <motion.span
+                    animate={{ scale: [1, 1.12, 1] }}
+                    transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute left-[48%] top-[44%] flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#22C55E] text-[9px] font-bold text-white ring-4 ring-[#22C55E]/20"
+                  >
+                    <motion.span
+                      animate={{ scale: [1, 2.2], opacity: [0.45, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-full bg-[#22C55E]"
+                    />
+                    <span className="relative">
+                      #1
+                    </span>
+                  </motion.span>
+                  <span className="absolute bottom-2 right-2 text-[8px] uppercase text-[#6B7280]">Maps</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 14 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.55, delay: 0.32, ease: "easeOut" }}
+                className="rounded-2xl border border-[#3B82F6]/12 bg-white p-3 text-center shadow-xl shadow-[#3B82F6]/10"
+              >
+                <p className="text-[2rem] font-black leading-none text-[#3B82F6]">15</p>
+                <p className="mt-1 text-xs font-bold leading-tight text-[#3B82F6]">dias grátis</p>
+                <p className="mt-2 text-[10px] leading-tight text-[#6B7280]">
+                  Diagnóstico inicial do seu perfil.
+                </p>
+                <a
+                  href={whatsappPrimary}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex h-10 w-full items-center justify-center rounded-xl bg-[#3B82F6] px-3 text-[11px] font-bold text-white shadow-lg shadow-[#3B82F6]/25"
+                >
+                  Começar
+                </a>
+              </motion.div>
+            </div>
           </motion.div>
 
-          {/* GPS Beacon — visual focal só em mobile (entre texto e simulador) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-            className="-my-2 flex justify-center lg:hidden"
-            aria-hidden="true"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="relative hidden min-h-[540px] min-w-0 items-center justify-end lg:flex"
           >
-            <GpsBeacon size="md" />
-          </motion.div>
-
-          {/* Right — Google Search Animation */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.75, delay: 0.15, ease: "easeOut" }}
-            className="flex justify-center lg:justify-end"
-          >
-            <GoogleSearchAnimation />
+            <div className="relative z-10 grid w-full max-w-[680px] items-end justify-items-end gap-4 xl:max-w-none xl:grid-cols-[minmax(0,400px)_minmax(330px,350px)] xl:gap-5">
+              <div className="min-w-0">
+                <GoogleSearchAnimation />
+              </div>
+              <div className="grid w-full max-w-[350px] min-w-0 gap-4 pb-6 xl:max-w-none xl:pb-8">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92, y: 16 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.28, ease: "easeOut" }}
+                  className="relative flex h-56 items-center justify-center overflow-hidden rounded-3xl border border-[#3B82F6]/12 bg-white/88 shadow-2xl shadow-[#3B82F6]/10 backdrop-blur"
+                  aria-hidden="true"
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(59,130,246,0.18),rgba(59,130,246,0.04)_42%,transparent_70%)]" />
+                  <motion.div
+                    animate={{ opacity: [0.18, 0.34, 0.18] }}
+                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-x-8 bottom-10 h-24 rounded-full bg-[#3B82F6]/20 blur-3xl"
+                  />
+                  <div className="absolute bottom-2 left-1/2 h-32 w-[86%] -translate-x-1/2 overflow-hidden rounded-[1.4rem] border border-[#3B82F6]/10 bg-[#E8EEF4] shadow-[0_22px_48px_rgba(59,130,246,0.14),inset_0_1px_0_rgba(255,255,255,0.9)] [transform:perspective(620px)_rotateX(58deg)]">
+                    <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(219,234,254,0.95),rgba(236,253,245,0.7))]" />
+                    <div
+                      className="absolute inset-0 opacity-[0.22]"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(rgba(59,130,246,0.26) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.26) 1px, transparent 1px)",
+                        backgroundSize: "24px 24px",
+                      }}
+                    />
+                    <div className="absolute left-0 top-8 h-2.5 w-full bg-white/95 shadow-sm" />
+                    <div className="absolute left-0 top-20 h-2.5 w-full rotate-[-8deg] bg-white/95 shadow-sm" />
+                    <div className="absolute left-[22%] top-0 h-full w-2.5 bg-white/95 shadow-sm" />
+                    <div className="absolute left-[62%] top-0 h-full w-2.5 rotate-[5deg] bg-white/95 shadow-sm" />
+                    <div className="absolute left-[10%] top-[58%] h-7 w-16 rounded-full bg-[#BFE3C6]/90 shadow-sm" />
+                    <div className="absolute right-[10%] top-[20%] h-7 w-20 rounded-full bg-[#BFE3C6]/90 shadow-sm" />
+                    <div className="absolute left-[7%] top-[20%] h-5 w-10 rounded-md bg-[#DDE7F2]/90" />
+                    <div className="absolute right-[22%] top-[62%] h-7 w-12 rounded-md bg-[#DDE7F2]/90" />
+                    <div className="absolute left-[42%] top-[8%] h-5 w-14 rounded-md bg-[#DDE7F2]/80" />
+                    <motion.div
+                      animate={{ x: ["-35%", "145%"], opacity: [0, 0.65, 0] }}
+                      transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-transparent via-white/70 to-transparent blur-sm"
+                    />
+                    <motion.div
+                      animate={{ opacity: [0.45, 0.9, 0.45] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#3B82F6]/45 bg-[#3B82F6]/10"
+                    />
+                    <motion.div
+                      animate={{ backgroundPosition: ["0px 0px", "40px 0px"] }}
+                      transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
+                      className="absolute left-1/2 top-1/2 h-2 w-32 -translate-x-1/2 -translate-y-1/2 rotate-[-18deg] rounded-full bg-[repeating-linear-gradient(90deg,rgba(59,130,246,0.2)_0_8px,rgba(59,130,246,0.55)_8px_16px)]"
+                    />
+                    <motion.span
+                      animate={{ x: [18, 78, 122, 178], y: [104, 72, 84, 38], opacity: [0, 1, 1, 0] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute left-0 top-0 size-2.5 rounded-full bg-[#22C55E] shadow-[0_0_16px_rgba(34,197,94,0.75)]"
+                    />
+                  </div>
+                  <div className="absolute bottom-8 left-1/2 h-7 w-28 -translate-x-1/2 rounded-full bg-[#1E40AF]/20 blur-xl" />
+                  <GpsBeacon size="sm" className="relative z-10 -mt-14 drop-shadow-[0_24px_34px_rgba(37,99,235,0.28)]" />
+                  <div className="absolute bottom-5 left-5 rounded-full bg-[#22C55E]/10 px-3 py-1 text-[11px] font-bold text-[#16A34A] shadow-sm shadow-[#22C55E]/10">
+                    GPS ativo
+                  </div>
+                  <div className="absolute right-5 top-5 rounded-full bg-[#3B82F6]/10 px-3 py-1 text-[11px] font-bold text-[#3B82F6]">
+                    raio local
+                  </div>
+                  <div className="absolute bottom-5 right-5 rounded-full bg-white/80 px-3 py-1 text-[10px] font-semibold text-[#6B7280] shadow-sm">
+                    Maps 3km
+                  </div>
+                </motion.div>
+                <TrialOfferCard />
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -379,8 +491,8 @@ export default function Home() {
               })}
             </div>
 
-            {/* Content card — altura fixa garante zero layout shift entre tabs */}
-            <div className="relative flex min-h-[680px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/3 p-6 shadow-xl shadow-black/20 sm:p-8 lg:h-[680px] lg:min-h-0">
+            {/* Content card — altura fixa para evitar layout shift, spacing harmonioso */}
+            <div className="relative flex min-h-[540px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/3 p-5 shadow-xl shadow-black/20 sm:min-h-[580px] sm:p-7 lg:h-[600px] lg:min-h-0">
               {/* Glow corner that matches active tab color */}
               <motion.span
                 key={`glow-${activeTab}`}
@@ -398,7 +510,7 @@ export default function Home() {
                 transition={{ duration: 0.35 }}
                 className="relative flex flex-1 flex-col"
               >
-                <div className="mb-5 flex flex-wrap gap-2">
+                <div className="mb-4 flex flex-wrap gap-2">
                   {currentFeature.badges.map((badge) => (
                     <Badge
                       key={badge}
@@ -408,20 +520,20 @@ export default function Home() {
                     </Badge>
                   ))}
                 </div>
-                <h3 className="text-balance text-2xl font-bold leading-tight sm:text-3xl">
+                <h3 className="text-balance text-xl font-bold leading-tight sm:text-2xl lg:text-[1.625rem]">
                   {currentFeature.title}
                 </h3>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-white/65 sm:text-base sm:leading-7">
+                <p className="mt-2 max-w-xl text-sm leading-6 text-white/65 sm:text-[15px] sm:leading-6">
                   {currentFeature.text}
                 </p>
 
                 {/* Feature visual mockup */}
-                <div className="mt-6 flex-1">
+                <div className="mt-4 sm:mt-5">
                   <FeatureVisual tabIndex={activeTab} />
                 </div>
 
-                {/* Mini stats row */}
-                <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
+                {/* Mini stats row — empurrado para o fim do card */}
+                <div className="mt-auto grid grid-cols-3 gap-2 pt-4 sm:gap-3 sm:pt-5">
                   {currentFeature.stats.map((stat, idx) => (
                     <motion.div
                       key={stat.label}
@@ -431,7 +543,7 @@ export default function Home() {
                       className="rounded-xl border border-white/8 bg-white/[0.04] p-2.5 sm:p-3"
                     >
                       <p
-                        className={`text-base font-bold leading-none sm:text-xl ${featureTabs[activeTab].color}`}
+                        className={`text-base font-bold leading-none sm:text-lg ${featureTabs[activeTab].color}`}
                       >
                         {stat.value}
                       </p>
@@ -676,7 +788,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="-mx-4 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6 sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {PLANS.map((plan, index) => {
               const isBronze = plan.tier === "bronze";
               const isPrata = plan.tier === "prata";
@@ -705,7 +817,7 @@ export default function Home() {
                   transition={{ duration: 0.4, delay: index * 0.06 }}
                   whileHover={{ y: -6 }}
                   className={[
-                    "group relative flex flex-col rounded-2xl p-7 transition-all duration-300",
+                    "group relative flex w-[82%] shrink-0 snap-center flex-col rounded-2xl p-6 transition-all duration-300 sm:w-auto sm:shrink sm:snap-align-none sm:p-7",
                     isOuro
                       ? "border-2 border-[#22C55E] bg-white text-[#1A1A1A] shadow-xl shadow-[#22C55E]/15 hover:shadow-2xl hover:shadow-[#22C55E]/25"
                       : isDiamante
@@ -713,11 +825,11 @@ export default function Home() {
                       : "border border-[#1A1A1A]/10 bg-white text-[#1A1A1A] hover:border-[#1A1A1A]/20 hover:shadow-xl",
                   ].join(" ")}
                 >
-                  {/* Highlight badge — barra full-width saindo do topo no hover */}
+                  {/* Highlight badge — sempre visível em mobile, anima do topo no hover desktop */}
                   {plan.highlight && (
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute inset-x-0 top-0 z-20 flex h-9 translate-y-0 items-center justify-center gap-1.5 rounded-t-2xl bg-gradient-to-r from-[#16A34A] via-[#22C55E] to-[#16A34A] px-4 text-[11px] font-bold uppercase tracking-wider text-white opacity-0 shadow-lg shadow-[#22C55E]/30 transition-all duration-300 ease-out group-hover:-translate-y-7 group-hover:opacity-100"
+                      className="pointer-events-none absolute inset-x-0 top-0 z-20 flex h-9 -translate-y-7 items-center justify-center gap-1.5 rounded-t-2xl bg-gradient-to-r from-[#16A34A] via-[#22C55E] to-[#16A34A] px-4 text-[11px] font-bold uppercase tracking-wider text-white opacity-100 shadow-lg shadow-[#22C55E]/30 transition-all duration-300 ease-out lg:translate-y-0 lg:opacity-0 lg:group-hover:-translate-y-7 lg:group-hover:opacity-100"
                     >
                       <Star className="size-3 fill-white" aria-hidden="true" />
                       {plan.highlight}
